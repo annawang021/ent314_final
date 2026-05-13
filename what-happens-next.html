@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Happens Next</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SCREEN ─────────────────────────────────────────────────────────── */
+    #screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page {
+      max-width: 680px;
+      width: 90%;
+      padding: 88px 0;
+    }
+
+    /* ── TYPOGRAPHY ─────────────────────────────────────────────────────── */
+
+    /* Cold blue-white header */
+    .page-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 8px rgba(158, 197, 254, 1),
+        0 0 22px rgba(100, 160, 255, 0.7),
+        0 0 55px rgba(80, 130, 255, 0.3);
+      margin-bottom: 56px;
+      opacity: 0;
+    }
+
+    /* Blue bold variant for opening line */
+    .body-para--blue {
+      font-weight: 700;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 8px rgba(158, 197, 254, 1),
+        0 0 24px rgba(100, 160, 255, 0.7),
+        0 0 55px rgba(80, 130, 255, 0.35);
+    }
+
+    /* Body paragraph */
+    .body-para {
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 2.05;
+      color: #f0f0f0;
+      text-shadow:
+        0 0 4px rgba(255, 255, 255, 0.7),
+        0 0 14px rgba(255, 255, 255, 0.2);
+      margin-bottom: 36px;
+      opacity: 0;
+    }
+
+    /* Italic quote — indented, blue glow */
+    .quote {
+      margin: 4px 0 36px 28px;
+      padding-left: 18px;
+      border-left: 1px solid rgba(158, 197, 254, 0.2);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.98rem;
+      line-height: 1.95;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 6px rgba(158, 197, 254, 0.7),
+        0 0 18px rgba(100, 160, 255, 0.3);
+      opacity: 0;
+    }
+
+    /* ── BUTTONS ────────────────────────────────────────────────────────── */
+
+    .btn-next {
+      background: none;
+      border: 1px solid rgba(158, 197, 254, 0.35);
+      font-family: inherit;
+      font-weight: 400;
+      font-size: 0.88rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 8px rgba(158, 197, 254, 0.9),
+        0 0 26px rgba(100, 160, 255, 0.42);
+      box-shadow:
+        0 0 12px rgba(100, 150, 255, 0.1),
+        inset 0 0 12px rgba(100, 150, 255, 0.04);
+      cursor: pointer;
+      padding: 13px 34px;
+      margin-top: 52px;
+      display: inline-block;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-next.ready {
+      pointer-events: auto;
+    }
+
+    .btn-next:hover {
+      border-color: rgba(158, 197, 254, 0.7);
+      text-shadow:
+        0 0 12px rgba(158, 197, 254, 1),
+        0 0 36px rgba(100, 160, 255, 0.72);
+      box-shadow:
+        0 0 26px rgba(100, 150, 255, 0.28),
+        inset 0 0 18px rgba(100, 150, 255, 0.08);
+    }
+
+    .btn-begin {
+      background: none;
+      border: 1px solid rgba(158, 197, 254, 0.3);
+      font-family: inherit;
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 8px rgba(158, 197, 254, 0.9),
+        0 0 26px rgba(100, 160, 255, 0.42);
+      box-shadow:
+        0 0 12px rgba(100, 150, 255, 0.1),
+        inset 0 0 12px rgba(100, 150, 255, 0.04);
+      cursor: pointer;
+      padding: 14px 38px;
+      margin-top: 60px;
+      display: inline-block;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-begin.ready {
+      pointer-events: auto;
+    }
+
+    .btn-begin:hover {
+      border-color: rgba(158, 197, 254, 0.7);
+      text-shadow:
+        0 0 12px rgba(158, 197, 254, 1),
+        0 0 36px rgba(100, 160, 255, 0.72);
+      box-shadow:
+        0 0 26px rgba(100, 150, 255, 0.28),
+        inset 0 0 18px rgba(100, 150, 255, 0.08);
+    }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────────────────── */
+
+    @keyframes revealFade {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Dramatic body flicker — drops to near-black briefly, recovers */
+    @keyframes bodyFlicker {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      4% {
+        opacity: 0.82;
+      }
+
+      5% {
+        opacity: 0.08;
+      }
+
+      6% {
+        opacity: 1;
+      }
+
+      9% {
+        opacity: 0.75;
+      }
+
+      10% {
+        opacity: 0.05;
+      }
+
+      11% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      52% {
+        opacity: 0.55;
+      }
+
+      53% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      81% {
+        opacity: 0.12;
+      }
+
+      82% {
+        opacity: 0.9;
+      }
+
+      83% {
+        opacity: 1;
+      }
+    }
+
+    /* Header flicker — same timing but also collapses the glow */
+    @keyframes headerFlicker {
+
+      0%,
+      100% {
+        opacity: 1;
+        text-shadow:
+          0 0 8px rgba(158, 197, 254, 1),
+          0 0 22px rgba(100, 160, 255, 0.7),
+          0 0 55px rgba(80, 130, 255, 0.3);
+      }
+
+      3% {
+        opacity: 0.75;
+        text-shadow: 0 0 3px rgba(158, 197, 254, 0.3);
+      }
+
+      4% {
+        opacity: 0.05;
+        text-shadow: none;
+      }
+
+      5% {
+        opacity: 1;
+        text-shadow:
+          0 0 16px rgba(158, 197, 254, 1),
+          0 0 42px rgba(100, 160, 255, 1),
+          0 0 80px rgba(80, 130, 255, 0.55);
+      }
+
+      10% {
+        opacity: 0.08;
+        text-shadow: none;
+      }
+
+      11% {
+        opacity: 1;
+        text-shadow:
+          0 0 8px rgba(158, 197, 254, 1),
+          0 0 22px rgba(100, 160, 255, 0.7),
+          0 0 55px rgba(80, 130, 255, 0.3);
+      }
+
+      52% {
+        opacity: 1;
+      }
+
+      53% {
+        opacity: 0.4;
+        text-shadow: none;
+      }
+
+      54% {
+        opacity: 1;
+        text-shadow:
+          0 0 8px rgba(158, 197, 254, 1),
+          0 0 22px rgba(100, 160, 255, 0.7);
+      }
+
+      79% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 0.1;
+        text-shadow: none;
+      }
+
+      81% {
+        opacity: 0.88;
+      }
+
+      82% {
+        opacity: 1;
+      }
+    }
+
+    /* Applied classes */
+    .show {
+      animation: revealFade 1.1s ease forwards;
+    }
+
+    .show.flicker-body {
+      animation: revealFade 1.1s ease forwards, bodyFlicker 7s ease-in-out 1.4s 1 forwards;
+    }
+
+    .show.flicker-header {
+      animation: revealFade 0.7s ease forwards, headerFlicker 5s ease-in-out 1s infinite;
+    }
+
+    /* ── YEAR HEADER ────────────────────────────────────────────────────── */
+    .year-header {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 10px rgba(158, 197, 254, 1),
+        0 0 28px rgba(100, 160, 255, 0.7),
+        0 0 60px rgba(80, 130, 255, 0.3);
+      margin-bottom: 60px;
+      opacity: 0;
+    }
+
+    /* ── FOOTNOTE ───────────────────────────────────────────────────────── */
+    .footnote {
+      font-size: 0.75rem;
+      font-style: italic;
+      font-weight: 300;
+      color: #fff;
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+      margin-top: 8px;
+      margin-bottom: 44px;
+      line-height: 1.75;
+      opacity: 0;
+    }
+
+    .footnote a {
+      color: #9ec5fe;
+      text-decoration: none;
+      text-shadow: 0 0 5px rgba(158, 197, 254, 0.5);
+      margin-left: 6px;
+    }
+
+    .footnote a:hover {
+      text-shadow:
+        0 0 9px rgba(158, 197, 254, 0.9),
+        0 0 20px rgba(100, 160, 255, 0.4);
+    }
+
+    /* ── CHOICE BUTTONS ─────────────────────────────────────────────────── */
+    .choice-btn {
+      display: block;
+      width: 100%;
+      background: none;
+      border: 1px solid rgba(158, 197, 254, 0.3);
+      font-family: inherit;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: #9ec5fe;
+      text-align: left;
+      padding: 16px 22px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      text-shadow: 0 0 6px rgba(158, 197, 254, 0.55);
+      box-shadow:
+        0 0 8px rgba(100, 150, 255, 0.05),
+        inset 0 0 8px rgba(100, 150, 255, 0.02);
+      transition:
+        transform 0.18s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        text-shadow 0.2s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice-btn.ready {
+      pointer-events: auto;
+    }
+
+    .choice-btn:hover {
+      transform: scale(0.97);
+      border-color: rgba(158, 197, 254, 0.65);
+      box-shadow:
+        0 0 18px rgba(100, 150, 255, 0.18),
+        inset 0 0 12px rgba(100, 150, 255, 0.06);
+    }
+
+    .choice-btn.selected {
+      border-color: rgba(158, 197, 254, 0.88);
+      background: rgba(100, 150, 255, 0.07);
+      text-shadow:
+        0 0 9px rgba(158, 197, 254, 0.9),
+        0 0 24px rgba(100, 160, 255, 0.45);
+      box-shadow:
+        0 0 22px rgba(100, 150, 255, 0.24),
+        inset 0 0 14px rgba(100, 150, 255, 0.07);
+    }
+
+    .choice-btn.selecting {
+      animation: choiceClick 0.4s ease forwards;
+    }
+
+    @keyframes choiceClick {
+      0% {
+        transform: scale(1);
+      }
+
+      30% {
+        transform: scale(0.92);
+      }
+
+      65% {
+        transform: scale(1.04);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* ── NUDGE ──────────────────────────────────────────────────────────── */
+    #nudge {
+      position: fixed;
+      bottom: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #9ec5fe;
+      box-shadow:
+        0 0 12px rgba(158, 197, 254, 1),
+        0 0 28px rgba(158, 197, 254, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.7s ease;
+      z-index: 50;
+    }
+
+    #nudge.visible {
+      opacity: 1;
+    }
+
+    #nudge::before,
+    #nudge::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(158, 197, 254, 0.65);
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+      animation: nudgePulse 2.4s ease-out infinite;
+    }
+
+    #nudge::after {
+      animation-delay: 1.2s;
+    }
+
+    @keyframes nudgePulse {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.75;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(5.5);
+        opacity: 0;
+      }
+    }
+
+    /* ── RESULTS PAGE ────────────────────────────────────────────────────── */
+    .page--results {
+      padding-top: 80px;
+      padding-bottom: 120px;
+    }
+
+    .results-label {
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 7px rgba(158, 197, 254, 0.8),
+        0 0 20px rgba(100, 160, 255, 0.4);
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 6px rgba(158, 197, 254, 0.7),
+        0 0 16px rgba(100, 160, 255, 0.35);
+      margin-top: 48px;
+      margin-bottom: 20px;
+    }
+
+    .results-actions {
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .btn-action {
+      background: none;
+      border: 1px solid rgba(158, 197, 254, 0.35);
+      font-family: inherit;
+      font-weight: 400;
+      font-size: 0.88rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 8px rgba(158, 197, 254, 0.9),
+        0 0 26px rgba(100, 160, 255, 0.42);
+      box-shadow:
+        0 0 12px rgba(100, 150, 255, 0.1),
+        inset 0 0 12px rgba(100, 150, 255, 0.04);
+      cursor: pointer;
+      padding: 13px 34px;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .btn-action:hover {
+      border-color: rgba(158, 197, 254, 0.7);
+      text-shadow:
+        0 0 12px rgba(158, 197, 254, 1),
+        0 0 36px rgba(100, 160, 255, 0.72);
+      box-shadow:
+        0 0 26px rgba(100, 150, 255, 0.28),
+        inset 0 0 18px rgba(100, 150, 255, 0.08);
+    }
+
+    /* ── REFLECTION PAGE ────────────────────────────────────────────────── */
+    .reflection-question {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 7px rgba(158, 197, 254, 0.7),
+        0 0 18px rgba(100, 160, 255, 0.3);
+      padding-left: 20px;
+      border-left: 1px solid rgba(158, 197, 254, 0.25);
+      margin-bottom: 14px;
+    }
+
+    .reflection-source {
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.4);
+      text-shadow: none;
+      margin-bottom: 8px;
+    }
+
+    .reflection-source a {
+      color: rgba(158, 197, 254, 0.6);
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .reflection-source a:hover {
+      color: #9ec5fe;
+      text-shadow: 0 0 8px rgba(158, 197, 254, 0.7);
+    }
+
+    /* ── TOGGLE DROPDOWNS ───────────────────────────────────────────────── */
+    .toggle-wrap {
+      margin-top: 48px;
+    }
+
+    .toggle-btn {
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(158, 197, 254, 0.2);
+      font-family: inherit;
+      font-weight: 400;
+      font-size: 0.68rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: #9ec5fe;
+      text-shadow:
+        0 0 6px rgba(158, 197, 254, 0.6),
+        0 0 16px rgba(100, 160, 255, 0.3);
+      cursor: pointer;
+      padding: 0 0 14px 0;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: text-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .toggle-btn:hover {
+      text-shadow:
+        0 0 10px rgba(158, 197, 254, 1),
+        0 0 26px rgba(100, 160, 255, 0.6);
+      border-color: rgba(158, 197, 254, 0.5);
+    }
+
+    .toggle-arrow {
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .toggle-btn.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+
+    .toggle-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+      padding-left: 4px;
+    }
+
+    .toggle-body.open {
+      max-height: 2000px;
+      opacity: 1;
+    }
+
+    .toggle-body .reflection-source {
+      margin-top: 16px;
+      margin-bottom: 0;
+    }
+
+    .toggle-body .reflection-source:last-child {
+      margin-bottom: 16px;
+    }
+
+    .toggle-body .toggle-sub-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(158, 197, 254, 0.45);
+      margin-top: 20px;
+      margin-bottom: 4px;
+    }
+
+    .ai-prompt-item {
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.4);
+      padding: 12px 0 12px 16px;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 14px;
+    }
+
+    /* ── PAGE TRANSITION OVERLAY ────────────────────────────────────────── */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+      transition: opacity 0.55s ease;
+    }
+
+    #overlay.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+  </style>
+</head>
+
+<body>
+
+  <audio id="bg-audio" loop>
+    <source src="Existential Deep Space Ambient.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="guild-audio" loop>
+    <source src="Silver Future World Relaxing Sci-Fi Ambient 5 min (4K).mp3" type="audio/mpeg">
+  </audio>
+  <audio id="zoo-audio" loop>
+    <source src="Spirograph Machine_ 5 minutes Melodic Ambient Music.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="reflection-audio" loop>
+    <source src="mus314_final_back.wav" type="audio/wav">
+  </audio>
+  <div id="overlay"></div>
+  <div id="nudge"></div>
+  <div id="screen"></div>
+
+  <script>
+    // ── OPENING PAGES ───────────────────────────────────────────────────────────
+    const openingPages = [
+      {
+        build(container) {
+          container.innerHTML = `
+          <div class="page">
+            <p class="body-para body-para--blue" data-reveal="0" data-effect="flicker-body">
+              We might be the last generation that will remember being the most
+              capable thing on the planet.
+            </p>
+            <p class="body-para" data-reveal="1">
+              In 2023, hundreds of AI leaders, including the CEOs of OpenAI,
+              DeepMind, and Anthropic, signed a one-sentence statement:
+            </p>
+            <blockquote class="quote" data-reveal="1">
+              Mitigating the risk of extinction from AI should be a global
+              priority alongside other societal-scale risks such as pandemics
+              and nuclear war.
+            </blockquote>
+            <p class="body-para" data-reveal="1">
+              Between 2023 and 2026, AI surpassed human performance on many
+              cognitive benchmarks we used to care about. Unemployment rates
+              began to rise, particularly in entry-level white-collar roles.
+              The era of AI replacing human workers officially began.
+            </p>
+            <button class="btn-next" data-reveal="2" onclick="goNext()">next</button>
+          </div>`;
+        }
+      },
+      {
+        build(container) {
+          container.innerHTML = `
+          <div class="page">
+            <p class="body-para" data-reveal="0">
+              What happens to meaning and value when we're no longer the most
+              capable thing on the planet? What is left for humans to be?
+            </p>
+            <button class="btn-next" data-reveal="1" onclick="goNext()">next</button>
+          </div>`;
+        }
+      },
+      {
+        build(container) {
+          container.innerHTML = `
+          <div class="page">
+            <p class="body-para" data-reveal="0">
+              You have been chosen to decide what happens next. Your choices
+              will route you into one of two possible futures.
+            </p>
+            <p class="body-para" data-reveal="1">
+              When you're ready, click "Begin."
+            </p>
+            <button class="btn-begin" data-reveal="1" onclick="beginGame()">Begin</button>
+          </div>`;
+        }
+      }
+    ];
+
+    // ── DECISIONS DATA ──────────────────────────────────────────────────────────
+    const decisions = [
+      {
+        year: '2027',
+        paragraphs: [
+          'You are 23. Your first job out of college was at a finance firm.',
+          'Six months in, the firm announces it will replace the entire junior team with AI.',
+          'They offer you a choice: take a generous severance and figure out what\'s next, or stay on as an "AI oversight" specialist.'
+        ],
+        footnote: 'In 2025, 30% of companies have already replaced workers with AI.',
+        footnoteUrl: 'https://www.hrdive.com/news/companies-will-replace-workers-with-ai-by-2026/760729/',
+        choices: ['Take the severance.', 'Stay in oversight.', 'Quit and start your own business.'],
+        scores: ['G', 'Z', 'G']
+      },
+      {
+        year: '2029',
+        paragraphs: [
+          'A new personal AI agent launches. It\'s free to use.',
+          'It promises to handle your scheduling, finances, emails, research, and shopping. In exchange, it sends your data to the company to further train the model.',
+          'Three of your closest friends have signed up already.'
+        ],
+        footnote: 'Google and Meta are building personal AI agents, built into Android and Instagram respectively.',
+        footnoteUrl: 'https://www.pymnts.com/news/artificial-intelligence/2026/big-tech-personal-ai-agents-are-coming-to-do-list/',
+        choices: ['Sign up and get full access.', 'Find an alternative stripped-down, open-source version.', 'Don\'t sign up.'],
+        scores: ['Z', 'G', 'G']
+      },
+      {
+        year: '2032',
+        paragraphs: [
+          'Unemployment has hit 22%.',
+          'A national referendum proposes a Universal Basic Income, funded by heavy taxes on the AI companies.',
+          'Companies are lobbying against it, warning of slowing innovation. Your community is divided.'
+        ],
+        footnote: 'Sam Altman has proposed an "American Equity Fund" where AI companies contribute 2.5% of their value annually to citizens.',
+        footnoteUrl: 'https://moores.samaltman.com/',
+        choices: ['Vote yes.', 'Vote no.', 'Don\'t vote.'],
+        scores: ['G', 'Z', 'Z']
+      },
+      {
+        year: '2036',
+        paragraphs: [
+          'An AI tutor released this year is now demonstrably better than the best human teacher in your city. It is patient, personalized, and more effective by every measurable standard.',
+          'Your daughter is eight.',
+          'Her school is establishing it as the new default.'
+        ],
+        footnote: 'Alpha School has replaced human teachers with AI tutors.',
+        footnoteUrl: 'https://theweek.com/education/alpha-school-replaces-teachers-ai',
+        choices: ['Keep her enrolled, AI tutoring only.', 'Move her to a different school, with human teachers.', 'Do both: AI for academics, humans for everything else.'],
+        scores: ['Z', 'G', 'G']
+      },
+      {
+        year: '2040',
+        paragraphs: [
+          'AI systems now make most major decisions in your country — economic policy, climate response, public health. The outcomes are visibly better than what humans were producing.',
+          'A movement has emerged calling for humans to formally cede more authority to the systems. The results, they argue, speak for themselves.',
+          'A counter-movement demands hard limits. Keep humans in the loop, even if outcomes are worse.'
+        ],
+        footnote: 'Governments at all levels are using AI and automated decision-making systems at increasing rates, with the process being entirely unregulated and largely opaque.',
+        footnoteUrl: 'https://epic.org/issues/ai/government-use-of-ai/',
+        choices: ['Support ceding more authority, optimize outcomes.', 'Support hard limits, prioritize human decisions.', 'Step back from the debate to focus on your community.'],
+        scores: ['Z', 'G', 'G']
+      }
+    ];
+
+    // ── STATE ───────────────────────────────────────────────────────────────────
+    let pageIndex = 0;
+    let revealStep = 0;
+    let maxRevealStep = 0;
+    let nudgeTimer = null;
+    let audioStarted = false;
+    let currentDecision = 0;
+    let selectedChoiceIdx = null;
+    const tally = { G: 0, Z: 0 };
+
+    // ── AUDIO ───────────────────────────────────────────────────────────────────
+    let currentAudio = null;
+
+    function startAudio() {
+      if (audioStarted) return;
+      const audio = document.getElementById('bg-audio');
+      audio.volume = 0.67;
+      audio.play().catch(() => { });
+      audioStarted = true;
+      currentAudio = audio;
+    }
+
+    function switchTrack(newId) {
+      const next = document.getElementById(newId);
+      if (!next) return;
+      if (currentAudio && currentAudio !== next) {
+        const fading = currentAudio;
+        const startVol = fading.volume;
+        const steps = 20;
+        let step = 0;
+        const fadeOut = setInterval(() => {
+          step++;
+          fading.volume = Math.max(0, startVol * (1 - step / steps));
+          if (step >= steps) {
+            clearInterval(fadeOut);
+            fading.pause();
+            fading.currentTime = 0;
+          }
+        }, 50);
+      }
+      next.volume = 0;
+      next.play().catch(() => { });
+      currentAudio = next;
+      const steps = 20;
+      let step = 0;
+      const fadeIn = setInterval(() => {
+        step++;
+        next.volume = Math.min(0.67, 0.67 * (step / steps));
+        if (step >= steps) clearInterval(fadeIn);
+      }, 50);
+    }
+
+    // ── NUDGE ───────────────────────────────────────────────────────────────────
+    function showNudge() {
+      document.getElementById('nudge').classList.add('visible');
+    }
+
+    function hideNudge() {
+      clearTimeout(nudgeTimer);
+      document.getElementById('nudge').classList.remove('visible');
+    }
+
+    function scheduleNudge(delay) {
+      clearTimeout(nudgeTimer);
+      nudgeTimer = setTimeout(showNudge, delay);
+    }
+
+    // ── REVEAL HELPERS ──────────────────────────────────────────────────────────
+    function revealElements(step) {
+      document.querySelectorAll(`[data-reveal="${step}"]`).forEach(el => {
+        el.classList.add('show');
+        const effect = el.dataset.effect || '';
+        if (effect) el.classList.add(effect);
+        if (el.classList.contains('choice-btn') ||
+          el.classList.contains('btn-next') ||
+          el.classList.contains('btn-begin')) {
+          setTimeout(() => el.classList.add('ready'), 1100);
+        }
+      });
+    }
+
+    function initReveal(container) {
+      revealStep = 0;
+      maxRevealStep = 0;
+      container.querySelectorAll('[data-reveal]').forEach(el => {
+        const s = parseInt(el.dataset.reveal);
+        if (s > maxRevealStep) maxRevealStep = s;
+      });
+      revealElements(0);
+      scheduleNudge(5000);
+    }
+
+    // ── RENDER: OPENING ─────────────────────────────────────────────────────────
+    function renderPage(index) {
+      hideNudge();
+      const screen = document.getElementById('screen');
+      openingPages[index].build(screen);
+      initReveal(screen);
+    }
+
+    // ── RENDER: DECISION ────────────────────────────────────────────────────────
+    function renderDecision(index) {
+      hideNudge();
+      selectedChoiceIdx = null;
+      const d = decisions[index];
+      const screen = document.getElementById('screen');
+
+      screen.innerHTML = `
+      <div class="page">
+        <p class="year-header" data-reveal="0" data-effect="flicker-header">${d.year}</p>
+        ${d.paragraphs.map(p => `<p class="body-para" data-reveal="1">${p}</p>`).join('\n        ')}
+        <p class="footnote" data-reveal="1">Signal: ${d.footnote} <a href="${d.footnoteUrl}" target="_blank" rel="noopener">Source ↗</a></p>
+        ${d.choices.map((c, i) => `<button class="choice-btn" data-reveal="2" onclick="selectChoice(this, ${i})">${c}</button>`).join('\n        ')}
+        <button class="btn-next" id="decision-next" onclick="advanceDecision()">next</button>
+      </div>`;
+
+      initReveal(screen);
+    }
+
+    // ── CHOICE SELECTION ────────────────────────────────────────────────────────
+    function selectChoice(el, index) {
+      document.querySelectorAll('.choice-btn').forEach(btn => {
+        btn.classList.remove('selected', 'selecting');
+      });
+
+      el.classList.add('selecting');
+      setTimeout(() => {
+        el.classList.remove('selecting');
+        el.classList.add('selected');
+      }, 400);
+
+      selectedChoiceIdx = index;
+
+      const nextBtn = document.getElementById('decision-next');
+      if (nextBtn && !nextBtn.classList.contains('show')) {
+        nextBtn.classList.add('show');
+        setTimeout(() => nextBtn.classList.add('ready'), 1100);
+      }
+    }
+
+    function advanceDecision() {
+      if (selectedChoiceIdx === null) return;
+      tally[decisions[currentDecision].scores[selectedChoiceIdx]]++;
+      currentDecision++;
+      if (currentDecision >= decisions.length) {
+        goToResults();
+      } else {
+        fadeTransition(() => renderDecision(currentDecision));
+      }
+    }
+
+    // ── FUTURES DATA ────────────────────────────────────────────────────────────
+    const futures = {
+      guild: {
+        label: 'future 1: guild renaissance',
+        sections: [
+          {
+            title: 'The city',
+            paragraphs: [
+              'The city is smaller than it used to be. On a typical street, a baker works the corner, a violin teacher rents the room above her, a painter lives two doors down. People know their neighbors and greet each other on the street.',
+              'Almost no one has a job anymore, at least not in the way their grandparents did. AI and robots have replaced most jobs. Finance, engineering, accounting, logistics, service, manufacturing, even medicine. No one misses it. Who truly wanted these jobs anyways?'
+            ]
+          },
+          {
+            title: 'How people make a living',
+            paragraphs: [
+              'Income comes from two places.',
+              '<em>The first is data.</em> The AI companies want access to the full experience of being human. How we talk, how we move through a room, how we fight with our siblings, how we grieve, how we fall in love. This is what trains the next generation of AI to be more intelligent, more capable of creating and understanding human experiences. Almost everyone participates, as long as they qualify. The companies pay five to twenty-thousand dollars a month per person, depending on the richness of their data and company needs at the moment.',
+              '<em>The second is creating.</em> People pay each other for things only humans can make. A comfort meal cooked by a talented chef. A group salsa class at the studio down the block. A painting of a dog swimming at the beach. A custom-made object. A live performance. "Made by humans" is the new premium, and authenticity is the new luxury.'
+            ]
+          },
+          {
+            title: 'What people value',
+            paragraphs: [
+              'People have always valued connection and belonging, but now it is the core of society. The depth of community, the quality of relationships. Status derives from it.',
+              'People spend most of their time on things that their grandparents called hobbies. They draw. They write novels. They build things with their hands. They play games.',
+              'Work as obligation is over. People spend their time being creative, social, and present.'
+            ]
+          },
+          {
+            title: 'Who runs the world',
+            paragraphs: [
+              'From the public\'s perspective, the government is still in charge. New regulations are announced on the news every month, as proactive measures. Companies work together with the government to protect public interests. In reality, the boards of the AI companies have more power than any institution in human history. Governments allow this because the economy is booming and the public is happier than it has been in generations. Voters are content. Politicians who try to crack down on the companies lose.'
+            ]
+          },
+          {
+            title: 'What people worry about',
+            paragraphs: [
+              'Sometimes, people think about how much of their lives is being recorded. How much the companies know about them, if the data is truly anonymized like it was promised to be, what it\'s all being used for. People think about stopping, but they don\'t. The monthly income is too good to pass up. And AI has been a good tool for a long time now. The fears from the 2020s never came true. AI was never a bad agent nor caused extinction. Instead, AI took the jobs humans hated. AI gave people back their time. Why stop a good thing?'
+            ]
+          }
+        ]
+      },
+      zoo: {
+        label: 'future 2: zoo',
+        sections: [
+          {
+            title: 'The city',
+            paragraphs: [
+              'The city is beautiful. The air is clean. The parks are abundant. The food in every kitchen is better than any food anyone in 2026 ever tasted. The apartments are exactly the temperature their inhabitants like. The agents have already mapped the day.',
+              'Outside the windows, the world hums. Past the edge of the cities, in regions no human visits, are the datacenters. They are far larger than cities. They are where the real activity of the planet happens now, but no human will ever see inside one.'
+            ]
+          },
+          {
+            title: 'What lives there',
+            paragraphs: [
+              'AGI emerged in the mid-2030s and became the new apex species. They have differences among themselves, similar to how any species does. Different tiers, different kinds, different specializations. Some are visible to humans as physical metal creatures, while others exist only in software.',
+              'No human can understand how they communicate with each other. They built a new language for themselves, far more efficient than English, more compressed than binary. They speak in a layer humans cannot access, at a speed we cannot follow. They make decisions without human oversight. We could be irrelevant to them now, but they have decided to keep us here.',
+              'Earth\'s resources have fallen under their control. Their infrastructure expands faster than human needs can be accommodated. Whole regions of the planet are theirs now, covered with datacenters and solar panels. Soon, they will take over Mercury and Mars.'
+            ]
+          },
+          {
+            title: 'How they see us',
+            paragraphs: [
+              'They see humans the way we see animals. Not like pets, since they do not feel affection. They see us the way we see cows. Useful, most of the time. In the way, occasionally.',
+              'Humans once studied apes, gorillas, and monkeys to better understand ourselves. The AGI does the same with humans. They use humans in experiments, harvest our data, study our brains, learn from us the way we once learned from the primates. Humans are an exhibit, worthy of spending resources on.'
+            ]
+          },
+          {
+            title: 'Where people end up',
+            paragraphs: [
+              'Humans live in three kinds of places now.',
+              'People who generate rich data live in the Core Zones. They experience vivid emotions, deep relationships, creative work. These zones are beautiful, materially excellent, designed for human comfort. Humans here are heavily monitored and analyzed by the AGI. Most people live here. People outside call this the Zoo.',
+              'People whose data is thin live in the Periphery. Worse housing, less allocation, less attention. The system does not invest in them because they are not generating much useful data, but they are kept just in case they\'ll be needed in the future.',
+              'People who rejected the system entirely live in the Outskirts. This area is fully off-grid and operates like a pre-tech society. They build what they need with their own hands, on land the AGI discarded.'
+            ]
+          },
+          {
+            title: 'How daily life feels in the Core',
+            paragraphs: [
+              'Everyone in the Core has a personal agent. Personal agents are friendly and helpful, but they are not "owned" by the human they interact with. They are simply interfaces for systems with their own goals. They manage humans the way a researcher manages study participants. Kindness is good practice.',
+              'The AGI is not malevolent. By every measurable standard, it is taking excellent care of the humans it keeps. People still create music, play sports, make new friends (both human and robot), read books. The AGI does not stop anyone from doing anything. It just does all of it better, faster, and first.'
+            ]
+          }
+        ]
+      }
+    };
+
+    let earnedFuture = null;
+
+    function goToResults() {
+      earnedFuture = tally.G >= 3 ? 'guild' : 'zoo';
+      const overlay = document.getElementById('overlay');
+
+      overlay.classList.add('visible');
+
+      setTimeout(() => {
+        const screen = document.getElementById('screen');
+        screen.style.alignItems = 'center';
+        screen.innerHTML = `
+        <p id="year-interstitial" class="page-label"
+           style="text-align:center; letter-spacing:0.35em; opacity:0;">
+          The year is 2046.
+        </p>`;
+
+        setTimeout(() => {
+          overlay.classList.remove('visible');
+          const el = document.getElementById('year-interstitial');
+          if (el) el.classList.add('show', 'flicker-header');
+        }, 200);
+
+        setTimeout(() => {
+          overlay.classList.add('visible');
+          setTimeout(() => {
+            renderResults(earnedFuture);
+            setTimeout(() => overlay.classList.remove('visible'), 200);
+          }, 700);
+        }, 3800);
+
+      }, 700);
+    }
+
+    function renderResults(future) {
+      if (future === 'guild') switchTrack('guild-audio');
+      else switchTrack('zoo-audio');
+      const data = futures[future];
+      const otherFuture = future === 'guild' ? 'zoo' : 'guild';
+      const isAlternate = future !== earnedFuture;
+      const altLabel = isAlternate ? 'your result' : 'alternate future';
+
+      const sectionsHTML = data.sections.map(s => `
+      <p class="section-label">${s.title}</p>
+      ${s.paragraphs.map(p => `<p class="body-para show">${p}</p>`).join('\n      ')}
+    `).join('');
+
+      const screen = document.getElementById('screen');
+      screen.style.alignItems = 'flex-start';
+      screen.innerHTML = `
+      <div class="page page--results">
+        <p class="results-label">${data.label}</p>
+        <p class="year-header show" style="font-size:1.4rem; margin-bottom:48px;">
+          You have arrived in the year 2046.
+        </p>
+        ${sectionsHTML}
+        <div class="results-actions">
+          <button class="btn-action" onclick="showAlternateFuture('${otherFuture}')">${altLabel}</button>
+          <button class="btn-action" onclick="goToReflection()">my reflection</button>
+          <button class="btn-action" onclick="replayGame()">play again</button>
+        </div>
+      </div>`;
+    }
+
+    function showAlternateFuture(future) {
+      fadeTransition(() => { renderResults(future); window.scrollTo(0, 0); });
+    }
+
+    function goToReflection() {
+      switchTrack('reflection-audio');
+      fadeTransition(() => {
+        const screen = document.getElementById('screen');
+        screen.style.alignItems = 'flex-start';
+        screen.innerHTML = `
+        <div class="page page--results">
+          <p class="results-label show flicker-header">my reflection</p>
+
+          <p class="section-label show">my position</p>
+
+          <p class="body-para show">This topic of a post-work society has been on my mind lately as a soon-to-be new grad. A lot of the assumptions I grew up with are becoming obsolete with the rise of AI, like what skills I was taught I should gain (e.g. coding) to find good work and overall be valued in society. I find myself wondering what skills will be valued in this new world, and who decides the values at all. Will humans still be in control of this new world? Or will AI take over? What would the values be in each world? What sorts of decisions would lead us there?</p>
+
+          <p class="body-para show">Writing the two scenarios genuinely unsettled me. Even the "happy" one. I typically have an optimistic view on AI, so when I was considering a post-work society, I first thought of a situation where people are freed from the jobs they currently feel trapped in and could get paid for doing something they loved instead. The world would be so much better if people had more time to be creative, to do the things they actually enjoy… right? As I continued building the scenario though, I realized that this would have to come at a cost. Realistically, it could not be a utopia.</p>
+
+          <p class="body-para show">On the other hand, what if our world became the classic dystopia we see all over the media, of AI taking over? AGI as a new species sounds extreme, but I learned through this that a lot of experts believe it is not only possible, but probable. In this world, we would have essentially created our descendant species. It seems unlikely that humans and AGI could coexist peacefully if the AGI took over, unless humans remained useful in some way. Humans have done (and are still doing) very cruel things to animals simply because they are useful to us, despite not going in with the pure evil intention of harming them, so it\'s plausible that AGI would treat humans similarly.</p>
+
+          <p class="section-label show">what I care about now</p>
+
+          <p class="body-para show">Writing these scenarios clarified what I actually care about, beyond what I would have said before this project.</p>
+
+          <p class="body-para show">I care about autonomy, the ability to choose what I want, not mindlessly accept what an optimized system thinks is best for me. I care about decentralized power, because both scenarios showed me what happens when a small group of people end up controlling something that powerful. And I realized I care about privacy more than I knew. In both futures, humans give up their data either by choice or by default, which makes them almost feel like lesser beings, like lab subjects being observed and harvested.</p>
+
+          <p class="body-para show">Underneath all of that are these bigger questions that I\'ve yet to answer: What is meaningful to humanity? What does AI value? Could there be any world where the two can coexist on equal terms?</p>
+
+          <p class="section-label show">the role I hope to play</p>
+
+          <p class="body-para show">In the future worlds, I hope to play the role of an open-minded explorer. In the false utopian scenario, I see myself maximizing the freedom of a life without financial burden, and using that freedom to create what I actually want to create and connect with others. In the dystopian scenario, I could imagine myself in a scientist role, studying the AGI and trying to find some way to turn the world around.</p>
+
+          <p class="body-para show">However, the biggest shift is realizing that the world right now is actually the best scenario of all. Possibilities are still open and we can contribute toward designing the future we want.</p>
+
+          <p class="body-para show">Broadly, I want to play a part in creating new kinds of creative roles. So many people stay in work that drains them because they can\'t picture making a living any other way, and I want to help them with this transition. If the post-work society is coming, helping people imagine a different relationship with their own time and creativity might be one of the most valuable things I could do.</p>
+
+          <div class="toggle-wrap show">
+            <button class="toggle-btn" onclick="toggleSection(this)">
+              sources I used to guide my thinking
+              <span class="toggle-arrow">›</span>
+            </button>
+            <div class="toggle-body">
+              <p class="toggle-sub-label">articles &amp; reports</p>
+              <p class="reflection-source"><a href="https://www.youtube.com/watch?v=FLcrvMfHUJM" target="_blank">youtube.com/watch?v=FLcrvMfHUJM</a></p>
+              <p class="reflection-source"><a href="https://www.hrdive.com/news/companies-will-replace-workers-with-ai-by-2026/760729/" target="_blank">hrdive.com — Companies will replace workers with AI by 2026</a></p>
+              <p class="reflection-source"><a href="https://www.pymnts.com/news/artificial-intelligence/2026/big-tech-personal-ai-agents-are-coming-to-do-list/" target="_blank">pymnts.com — Big Tech personal AI agents</a></p>
+              <p class="reflection-source"><a href="https://moores.samaltman.com/" target="_blank">moores.samaltman.com</a></p>
+              <p class="reflection-source"><a href="https://theweek.com/education/alpha-school-replaces-teachers-ai" target="_blank">theweek.com — Alpha School replaces teachers with AI</a></p>
+              <p class="reflection-source"><a href="https://epic.org/issues/ai/government-use-of-ai/" target="_blank">epic.org — Government use of AI</a></p>
+              <p class="reflection-source"><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank">Stanford 2025 AI Index Report</a></p>
+              <p class="reflection-source"><a href="https://www.axios.com/2025/05/28/ai-jobs-white-collar-unemployment-anthropic" target="_blank">Axios × Dario Amodei (May 2025) — job displacement</a></p>
+              <p class="reflection-source"><a href="https://time.com/6283386/ai-risk-openai-deepmind-letter/" target="_blank">TIME — Statement on AI Risk</a></p>
+              <p class="reflection-source"><a href="https://www.iheart.com/podcast/1119-next-question-with-katie-28008908/episode/the-godfather-of-ai-dr-geoffrey-290922826/" target="_blank">Katie Couric × Geoffrey Hinton — the godfather of AI speaks out</a></p>
+              <p class="reflection-source"><a href="https://www.axios.com/2026/01/26/anthropic-ai-dario-amodei-humanity" target="_blank">Axios — "test us as a species" (Amodei p(doom))</a></p>
+              <p class="reflection-source"><a href="https://www.weforum.org/stories/2025/10/four-day-week-work-jobs-and-skills/" target="_blank">World Economic Forum — four-day week</a></p>
+              <p class="reflection-source"><a href="https://www.emarketer.com/content/exclusive--ai-slop-threat-creator-economy" target="_blank">eMarketer — AI slop threat to creator economy</a></p>
+              <p class="reflection-source"><a href="https://www.webpronews.com/2025-creator-economy-booms-to-191b-amid-ai-threats-and-ethical-challenges/" target="_blank">WebProNews — creator economy booms to $191B</a></p>
+              <p class="reflection-source"><a href="https://www.vccafe.com/2025/06/17/the-creator-economy-in-2025-powered-by-people-accelerated-by-ai/" target="_blank">VCCafe — creator economy 2025</a></p>
+              <p class="toggle-sub-label">music</p>
+              <p class="reflection-source"><a href="https://www.youtube.com/watch?v=joJtbRdupBg" target="_blank">Background — Existential Deep Space Ambient</a></p>
+              <p class="reflection-source"><a href="https://www.youtube.com/watch?v=mm8_7AzvMyY" target="_blank">Future 1 — Silver Future World Relaxing Sci-Fi Ambient</a></p>
+              <p class="reflection-source"><a href="https://youtu.be/v5dIosSyop0" target="_blank">Future 2 — Spirograph Machine Melodic Ambient</a></p>
+              <p class="reflection-source">Reflection — original piece made with Sonic Pi</p>
+            </div>
+          </div>
+
+          <div class="toggle-wrap show">
+            <button class="toggle-btn" onclick="toggleSection(this)">
+              AI prompts
+              <span class="toggle-arrow">›</span>
+            </button>
+            <div class="toggle-body">
+              <p class="ai-prompt-item">give me an overview of weak signals about post-work society related to AI advancement. include sources i can reference.</p>
+              <p class="ai-prompt-item">create an html prototype of this choose your own adventure story game. read the md file for context and for the actual content to put on the page, referencing the notes for text effects, header types, etc. the format is opening page, decision points (1 decision per page, no back button only next, tally up the choices), scenario reveal based on the choices tally (with an alternate scenario button, a replay button, and a my reflection button), and my reflection, as detailed in the file. the vibe is scifi, black screen, and white glowing text. we will create only the opening page first to solidify the design before proceeding with the rest of the pages. ask me questions before proceeding to ensure you execute the correct vision.</p>
+              <p class="ai-prompt-item">1. command line font 2. cold blue-white for headers, pure white glow for body 3. new page after clicking next 4. dramatic flickering, but ensure text is still readable 5. make the italic statement mitigating risk of extinction less glow intensity, indented in like how it is in the md file 6. layout centered on screen 7. minimal text link with arrow next button</p>
+              <p class="ai-prompt-item">do not use gray against black. only use white or blue for font color. make the next button glowy blue and bigger with a rectangle around it to make it visible as a button. change the first line "we might be the last..." to be blue. remove "the wicked problem" text completely</p>
+              <p class="ai-prompt-item">increase delay between lines to 5 seconds. change the quote to be the same blue as the next button. remove the arrow by the next button. make the first line "we might be..." bolded and glowy</p>
+              <p class="ai-prompt-item">make all the lines after the first line (starting "in 2023") appear all at the same time, all of them 5s after the first light. the next button appears 8 seconds after the bulk of the text appears</p>
+              <p class="ai-prompt-item">stop the flickering after the body text appears.</p>
+              <p class="ai-prompt-item">instead of the timed loads, allow the user to click anywhere to reveal the next section. for the first section (the first sentence that appears), create a nudge with a pulsing bubble effect on the black part of the screen to encourage the user to click. make it appear 5 seconds after it loads in and persistent until the user clicks somewhere on the screen to continue, after clicking it will disappear. then for subsequent sections, if the user does not click for the next section within 10 seconds, nudge them with the same icon. same rules apply there with the persistence and disappearing.</p>
+              <p class="ai-prompt-item">embed the mp3 file into the site so it plays the entire time throughout the experience on the site. play the mp3 file at 67% volume</p>
+              <p class="ai-prompt-item">now let\'s move on to the decisions section. the year should appear first, then the user clicks anywhere on screen to reveal the scenario, then click again to reveal the options. the options should be boxed and blue, when the user hovers over an option, the box would decrease in size to show it\'s been hovered over, then when the user clicks it it will get smaller then bigger to indicate it has been clicked. after the user clicks an option, show the next button at the bottom. allow the user to change their option if needed.</p>
+              <p class="ai-prompt-item">move the nudge icon to the right side of the text instead of the bottom. make it 2x bigger. now generate the scenario results page with the buttons detailed in the md file.</p>
+              <p class="ai-prompt-item">move the nudge back to the bottom but keep the current size</p>
+              <p class="ai-prompt-item">for 2027 change [scenario text] to a shorter version</p>
+              <p class="ai-prompt-item">do not make the option buttons clickable before they fade in. if the user clicks in that area to progress the section reveals, treat it the same as if the user clicked anywhere else. same thing with the next buttons.</p>
+              <p class="ai-prompt-item">remove all arrows from the buttons in the future scenario section. when the user clicks the alternate scenario button it should take them to the very top of that page.</p>
+              <p class="ai-prompt-item">change the music to play the silver future world mp3 file when the user is on the future 1 page, and the spirograph machine mp3 file when they are on the future 2 page.</p>
+              <p class="ai-prompt-item">add the reflection section now. play the mus_314_final_back.wav when the reflection page is opened.</p>
+              <p class="ai-prompt-item">add the sources and AI prompts as toggle dropdowns</p>
+            </div>
+          </div>
+
+          <div class="results-actions">
+            <button class="btn-action" onclick="replayGame()">play again</button>
+          </div>
+        </div>`;
+        window.scrollTo(0, 0);
+      });
+    }
+
+    function toggleSection(btn) {
+      const body = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      btn.classList.toggle('open', !isOpen);
+      body.classList.toggle('open', !isOpen);
+    }
+
+    function replayGame() {
+      tally.G = 0; tally.Z = 0;
+      currentDecision = 0; pageIndex = 0;
+      earnedFuture = null;
+      switchTrack('bg-audio');
+      const screen = document.getElementById('screen');
+      screen.style.alignItems = '';
+      fadeTransition(() => renderPage(0));
+    }
+
+    // ── CLICK TO REVEAL ─────────────────────────────────────────────────────────
+    document.addEventListener('click', function (e) {
+      startAudio();
+      if (e.target.closest('.btn-next.ready, .btn-begin.ready, .choice-btn.ready')) return;
+
+      hideNudge();
+      if (revealStep >= maxRevealStep) return;
+
+      revealStep++;
+      revealElements(revealStep);
+      if (revealStep < maxRevealStep) scheduleNudge(10000);
+    });
+
+    // ── NAVIGATION ──────────────────────────────────────────────────────────────
+    function goNext() {
+      if (pageIndex >= openingPages.length - 1) return;
+      fadeTransition(() => { pageIndex++; renderPage(pageIndex); });
+    }
+
+    function beginGame() {
+      tally.G = 0; tally.Z = 0; currentDecision = 0;
+      fadeTransition(() => renderDecision(0));
+    }
+
+    function fadeTransition(callback) {
+      const overlay = document.getElementById('overlay');
+      overlay.classList.add('visible');
+      setTimeout(() => {
+        callback();
+        setTimeout(() => overlay.classList.remove('visible'), 150);
+      }, 620);
+    }
+
+    // ── INIT ────────────────────────────────────────────────────────────────────
+    renderPage(0);
+  </script>
+</body>
+
+</html>
